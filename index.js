@@ -14,8 +14,14 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
-// client.connect()
 
+
+
+app.get("/", (req, res) => {
+  res.send("Running PUCPC on port ");
+});
+
+// client.connect()
 async function run() {
   try {
     await client.connect();
@@ -60,9 +66,7 @@ async function run() {
 }
 run();
 
-app.get("/", (req, res) => {
-  res.send("Running PUCPC on port ");
-});
+
 
 app.listen(port, () => {
   console.log("Listening on ther ", port);
