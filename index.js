@@ -1,12 +1,13 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
-
-const cors = require("cors");
 require("dotenv").config();
+const cors = require("cors");
 const app = express();
-const port = process.env.PORT || 5000;
-
 app.use(cors());
+const bodyParser = require("body-parser");
+const port = process.env.PORT || 8000;
+app.use(bodyParser.json());
+
 
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@cluster0.m8c0v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
@@ -31,6 +32,32 @@ async function run() {
     const wingCollection = database.collection("wing");
     const sliderCollection = database.collection("slider");
     const blogCollection = database.collection("blog");
+    const userCollection = database.collection("user");
+    //teachers
+    app.post("/signup", async (req, res) => {
+      const email = req.body.email;
+      const newUser = req.body;
+      const isUserExist = await userCollection.findOne({ email: email })
+      
+      if (isUserExist) {
+        res.json({ message: 400 });
+      } else {
+        const result = await userCollection.insertOne(newUser);
+        res.json({ message: 200 });
+      }
+    });
+    app.post("/login", async (req, res) => {
+      const email = req.body.email;
+      const password = req.body.password;
+      const newUser = req.body;
+      const isUserExist = await userCollection.findOne({ email: email })
+      
+      if (isUserExist?.email === email && isUserExist?.password === password) {
+        res.json({ message: 200 });
+      } else {
+        res.json({ message: 400 });
+      }
+    });
     //teachers
     app.get("/teachers", async (req, res) => {
       const cursor = await teachersCollection.find({}).toArray();
@@ -58,6 +85,10 @@ async function run() {
     });
     app.get("/blog", async (req, res) => {
       const cursor = await blogCollection.find({}).toArray();
+      res.send(cursor);
+    });
+    app.get("/members", async (req, res) => {
+      const cursor = await userCollection.find({}).toArray();
       res.send(cursor);
     });
   } finally {
