@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
 async function run() {
   try {
     await client.connect();
-    const database = client.db("PUCPCDB");
+    const database = client.db("pucpc");
     const teachersCollection = database.collection("teachers");
     const teamCollection = database.collection("team");
     const wingCollection = database.collection("wing");
