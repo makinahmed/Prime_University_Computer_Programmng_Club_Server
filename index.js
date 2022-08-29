@@ -21,13 +21,7 @@ const client = new MongoClient(uri, {
 });
 
 
-// USER_NAME = pucpc;
-// PASSWORD = Lgw0DZOH8rEetB3q;
-//L3bDAyjYndPfzZmy
 
-
-// USER_NAME = PUCPC;
-// PASSWORD = GzLJKUqtDPkAfF8P;
 
 app.get("/", (req, res) => {
   res.send("Running PUCPC on port ");
