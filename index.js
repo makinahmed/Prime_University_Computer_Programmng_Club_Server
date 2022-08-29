@@ -9,7 +9,11 @@ const port = process.env.PORT || 8000;
 app.use(bodyParser.json());
 
 
-const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@cluster0.m8c0v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+// const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@cluster0.m8c0v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+
+const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@cluster0.5r3wkjs.mongodb.net/?retryWrites=true&w=majority`;
+
+
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -17,6 +21,13 @@ const client = new MongoClient(uri, {
 });
 
 
+// USER_NAME = pucpc;
+// PASSWORD = Lgw0DZOH8rEetB3q;
+//L3bDAyjYndPfzZmy
+
+
+// USER_NAME = PUCPC;
+// PASSWORD = GzLJKUqtDPkAfF8P;
 
 app.get("/", (req, res) => {
   res.send("Running PUCPC on port ");
